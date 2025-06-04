@@ -1,5 +1,6 @@
 from pgmpy.models import DiscreteBayesianNetwork
 from pgmpy.factors.discrete import TabularCPD
+from pgmpy.inference import VariableElimination
 
 
 def build_bayesian_network():
@@ -38,7 +39,16 @@ def build_bayesian_network():
         )
     )
 
+    if not model.check_model():
+        raise ValueError("Model is not valid. Please check the CPDs and structure.")
+
     return model
 
-model = build_bayesian_network()
-model.check_model()
+
+def ModelInference(model, evidence=None):
+    infer = VariableElimination(model)
+    if evidence:
+        return infer.query(variables=["Light", "MSTeams"], evidence=evidence)
+    else:
+        return infer.query(variables=["Light", "MSTeams"])
+
