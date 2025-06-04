@@ -10,6 +10,35 @@ def build_bayesian_network():
             variable="Room",
             variable_card=2,
             values=[[0.6], [0.4]],
+            state_names={"Room": ["absent", "present"]}
+        ),
+        TabularCPD(
+            variable="Light",
+            variable_card=2,
+            values=[[0.95, 0.5],
+                    [0.05, 0.5]],
+            evidence=["Room"],
+            evidence_card=[2],
+            state_names={
+                "Light": ["off", "on"],
+                "Room": ["absent", "present"]
+            }
+        ),
+        TabularCPD(
+            variable="MSTeams",
+            variable_card=2,
+            values=[[0.95, 0.2],
+                    [0.05, 0.8]],
+            evidence=["Room"],
+            evidence_card=[2],
+            state_names={
+                "MSTeams": ["off", "on"],
+                "Room": ["absent", "present"]
+            }
         )
     )
 
+    return model
+
+model = build_bayesian_network()
+model.check_model()
