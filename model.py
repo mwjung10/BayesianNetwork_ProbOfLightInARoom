@@ -48,7 +48,7 @@ def build_bayesian_network():
 def ModelInference(model, evidence=None):
     infer = VariableElimination(model)
     if evidence:
-        return infer.query(variables=["Light", "MSTeams"], evidence=evidence)
+        return infer.query(variables=["Light"], evidence=evidence)
     else:
-        return infer.query(variables=["Light", "MSTeams"])
+        return infer.query(variables=["Light"])
 
